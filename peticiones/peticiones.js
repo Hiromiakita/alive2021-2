@@ -1,7 +1,7 @@
 let traerUnPokemon = () => {
     console.log('trayendo datos');
 
-    fetch('https://pokeapi.co/api/v2/pokemon/1')
+    fetch('https://pokeapi.co/api/v2/pokemon/5')
         .then(info => info.json())
         .then(infoJson => console.log(infoJson));
 }
@@ -52,5 +52,46 @@ let traerPokemones = () => {
                 parrafo.innerText = infoTransformada.results[i].name;
             }
         })
+}
+
+
+let traerArtistas = () => {
+
+    fetch("https://www.theaudiodb.com/api/v1/json/1/search.php?s=coldplay")
+        .then(respuesta => respuesta.json())
+        .then(info => {
+            console.log(info);
+            console.log(info.artists[0].strArtist);
+            console.log(info.artists[0].strArtistBanner);
+
+            document.getElementById("nArtista").innerText = info.artists[0].strArtist;
+            document.getElementById("iArtista").src = info.artists[0].strArtistBanner; 
+    })
+}
+
+
+let mostrarBanderas = () => {
+
+    fetch("https://restcountries.com/v3.1/all").then(info => info.json()).then(infoTransformada => {
+
+        console.log(infoTransformada);
+
+        for(let i = 0; i < 3; i++ ) {
+           
+            let p = document.createElement("p");
+            let continente = document.createElement("p");
+            let img = document.createElement("img");
+
+            let banderas = document.getElementById("banderas");
+
+
+            banderas.append(p, continente, img);
+
+            p.innerText = infoTransformada[i].name.official;
+            continente.innerText = infoTransformada[i].continents[0];
+            img.src = infoTransformada[i].flags.png;
+        }
+
+    })
 }
 
